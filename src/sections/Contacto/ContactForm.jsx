@@ -7,10 +7,9 @@ import {
   isValidName,
   buildWhatsAppMessage,
 } from '../../utils/validators';
+import { WHATSAPP_WA, getWhatsAppLink } from '../../config/contact';
 import { Button } from '../../components/Button/Button';
 import styles from './ContactForm.module.css';
-
-const WHATSAPP_NUMBER = '5215578296609';
 
 export function ContactForm() {
   const [formData, setFormData] = useState({
@@ -115,7 +114,7 @@ export function ContactForm() {
     };
 
     const text = encodeURIComponent(buildWhatsAppMessage(data));
-    const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${text}`;
+    const url = getWhatsAppLink(buildWhatsAppMessage(data));
     window.open(url, '_blank');
 
     // Reset form

@@ -1,4 +1,5 @@
 import styles from './Header.module.css';
+import { WHATSAPP_URL } from '../../config/contact';
 
 export function Header() {
   return (
@@ -48,7 +49,7 @@ export function Header() {
 
             <a 
               className={`${styles.socialIcon} ${styles.whatsapp}`}
-              href="https://wa.me/5215578296609"
+              href={WHATSAPP_URL}
               target="_blank"
               rel="noopener"
               aria-label="WhatsApp Fighting Bulls Academy"

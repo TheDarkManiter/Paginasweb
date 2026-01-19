@@ -1,6 +1,7 @@
 import { useScrollTopButton } from '../../hooks/useScrollTopButton';
 import { useDelayedPulse } from '../../hooks/useDelayedPulse';
 import { useFormVisibility } from '../../hooks/useFormVisibility';
+import { WHATSAPP_URL } from '../../config/contact';
 import styles from './FloatingActions.module.css';
 
 export function FloatingActions() {
@@ -12,7 +13,7 @@ export function FloatingActions() {
     <div className={styles.container} aria-label="Acciones rápidas">
       {/* WhatsApp Flotante */}
       <a
-        href="https://wa.me/5215578296609"
+        href={WHATSAPP_URL}
         className={`
           ${styles.fab}
           ${styles.whatsapp}

@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const mensaje = document.getElementById("mensaje");
 
   // Número destino (AJUSTA al real)
-  const WHATSAPP_NUMBER = "5215578296609"; // formato wa.me (521 + 10 dígitos)
+  const WHATSAPP_NUMBER = "5215579389286"; // formato wa.me (521 + 10 dígitos)
 
   // ---------- Helpers UI ----------
   function setError(input, msg) {
