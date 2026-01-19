@@ -7,7 +7,7 @@ import {
   isValidName,
   buildWhatsAppMessage,
 } from '../../utils/validators';
-import { WHATSAPP_WA, getWhatsAppLink } from '../../config/contact';
+import { getWhatsAppLink } from '../../config/contact';
 import { Button } from '../../components/Button/Button';
 import styles from './ContactForm.module.css';
 
@@ -23,6 +23,8 @@ export function ContactForm() {
   });
 
   const [errors, setErrors] = useState({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState(null); // 'success', 'error', o null
 
   const clearError = (field) => {
     setErrors((prev) => {
@@ -97,37 +99,75 @@ export function ContactForm() {
     return { ok: Object.keys(newErrors).length === 0, telDigits };
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     const result = validate();
     if (!result.ok) return;
 
+    setIsSubmitting(true);
+    setSubmitStatus(null);
+
     const data = {
       nombre: formData.nombre.trim(),
       telefono: toWhatsAppPhone(result.telDigits),
       email: formData.email.trim(),
-      interes: formData.interes, // Podrías obtener el texto de la opción aquí
+      interes: formData.interes,
       edad: formData.edad,
       horario: formData.horario,
       mensaje: formData.mensaje.trim(),
     };
 
-    const text = encodeURIComponent(buildWhatsAppMessage(data));
-    const url = getWhatsAppLink(buildWhatsAppMessage(data));
-    window.open(url, '_blank');
+    try {
+      // Enviar datos a Netlify Function (backend)
+      const response = await fetch('/.netlify/functions/create-lead', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
 
-    // Reset form
-    setFormData({
-      nombre: '',
-      telefono: '',
-      email: '',
-      interes: '',
-      edad: '',
-      horario: '',
-      mensaje: '',
-    });
-    setErrors({});
+      const result = await response.json();
+
+      if (result.ok) {
+        // ✅ Éxito: Mostrar mensaje y abrir WhatsApp opcional
+        setSubmitStatus({ type: 'success', message: result.message || '¡Solicitud registrada exitosamente!' });
+
+        // Opcionalmente: Abrir WhatsApp para seguimiento
+        const whatsappUrl = getWhatsAppLink(
+          `Hola, soy ${data.nombre}. Acabo de registrarme en tu academia. Interesado en ${data.interes}.`
+        );
+        window.open(whatsappUrl, '_blank');
+
+        // Reset form
+        setFormData({
+          nombre: '',
+          telefono: '',
+          email: '',
+          interes: '',
+          edad: '',
+          horario: '',
+          mensaje: '',
+        });
+        setErrors({});
+      } else {
+        // ❌ Error en la respuesta
+        setSubmitStatus({
+          type: 'error',
+          message: result.error || 'Error al procesar tu solicitud. Intenta de nuevo.',
+        });
+      }
+    } catch (error) {
+      // ❌ Error de red o parsing
+      console.error('[ContactForm] Error:', error);
+      setSubmitStatus({
+        type: 'error',
+        message: 'Error de conexión. Por favor, intenta de nuevo.',
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -243,9 +283,23 @@ export function ContactForm() {
         ></textarea>
       </div>
 
+      {/* Mostrar estado de envío (éxito o error) */}
+      {submitStatus && (
+        <div 
+          className={`${styles.fullWidth} ${styles.submitMessage} ${styles[submitStatus.type]}`}
+          role="alert"
+        >
+          {submitStatus.type === 'success' ? '✅' : '❌'} {submitStatus.message}
+        </div>
+      )}
+
       <div className={styles.fullWidth}>
-        <Button type="submit" size="lg">
-          Enviar mensaje
+        <Button 
+          type="submit" 
+          size="lg"
+          disabled={isSubmitting}
+        >
+          {isSubmitting ? 'Enviando...' : 'Enviar mensaje'}
         </Button>
       </div>
     </form>
