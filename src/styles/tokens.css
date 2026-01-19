@@ -1,0 +1,42 @@
+/**
+ * Tokens de diseño: colores, espaciados, tipografía
+ * Reutilizable en toda la app
+ */
+
+:root {
+  /* Colors */
+  --color-primary: #c1121f;        /* Rojo FBA */
+  --color-dark: #010714;           /* Fondo oscuro */
+  --color-dark-secondary: #0d1a37;
+  --color-text: #f5f5f5;           /* Texto principal */
+  --color-text-secondary: #cfd6e4;  /* Texto secundario */
+  --color-text-muted: #b3b3b3;      /* Texto apagado */
+  --color-border: rgba(255,255,255,0.12);
+  --color-success: #25D366;        /* WhatsApp verde */
+
+  /* Spacing */
+  --spacing-xs: 8px;
+  --spacing-sm: 12px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 30px;
+  --spacing-xxl: 60px;
+
+  /* Border Radius */
+  --border-radius-sm: 12px;
+  --border-radius-md: 16px;
+  --border-radius-lg: 20px;
+  --border-radius-xl: 28px;
+  --border-radius-full: 999px;
+
+  /* Shadows */
+  --shadow-sm: 0 8px 22px rgba(0,0,0,0.45);
+  --shadow-md: 0 14px 34px rgba(0,0,0,0.50);
+  --shadow-lg: 0 18px 40px rgba(0,0,0,0.55);
+  --shadow-xl: 0 24px 55px rgba(0,0,0,0.65);
+
+  /* Transitions */
+  --transition-fast: 0.2s ease;
+  --transition-normal: 0.25s ease;
+  --transition-smooth: 0.35s ease;
+}

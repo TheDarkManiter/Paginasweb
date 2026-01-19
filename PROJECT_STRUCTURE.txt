@@ -1,0 +1,442 @@
+╔═══════════════════════════════════════════════════════════════════════════════╗
+║           FIGHTING BULLS ACADEMY - REACT + VITE FINAL STRUCTURE              ║
+║                      ✅ PROYECTO COMPLETADO Y LISTO                          ║
+╚═══════════════════════════════════════════════════════════════════════════════╝
+
+📁 TREE DE CARPETAS
+═══════════════════════════════════════════════════════════════════════════════
+
+paginasweb/
+│
+├── 📄 Documentación
+│   ├── ARCHITECTURE.md          ← Guía técnica detallada
+│   ├── SETUP.md                 ← Descripción de la arquitectura
+│   ├── QUICKSTART.md            ← Guía rápida de inicio
+│   ├── SUMMARY.md               ← Resumen ejecutivo
+│   ├── MIGRATION_COMPLETE.txt   ← Checklist visual
+│   └── PROJECT_STRUCTURE.txt    ← Este archivo
+│
+├── 📂 src/
+│   │
+│   ├── 🎯 app/                  [COMPONENTE RAÍZ]
+│   │   └── App.jsx              ← Orquesta todo
+│   │
+│   ├── 🧩 components/           [REUTILIZABLES - 5]
+│   │   ├── Header/
+│   │   │   ├── Header.jsx
+│   │   │   └── Header.module.css
+│   │   │
+│   │   ├── Footer/
+│   │   │   ├── Footer.jsx
+│   │   │   └── Footer.module.css
+│   │   │
+│   │   ├── FloatingActions/     [WhatsApp + Subir]
+│   │   │   ├── FloatingActions.jsx
+│   │   │   └── FloatingActions.module.css
+│   │   │
+│   │   ├── Button/
+│   │   │   ├── Button.jsx
+│   │   │   └── Button.module.css
+│   │   │
+│   │   └── SectionTitle/
+│   │       ├── SectionTitle.jsx
+│   │       └── SectionTitle.module.css
+│   │
+│   ├── 📑 sections/             [PRINCIPALES - 5]
+│   │   ├── Hero/                [#inicio]
+│   │   │   ├── Hero.jsx
+│   │   │   └── Hero.module.css
+│   │   │
+│   │   ├── Nosotros/            [#nosotros]
+│   │   │   ├── Nosotros.jsx
+│   │   │   └── Nosotros.module.css
+│   │   │
+│   │   ├── Horarios/            [#horarios]
+│   │   │   ├── Horarios.jsx
+│   │   │   └── Horarios.module.css
+│   │   │
+│   │   ├── Clases/              [#clases]
+│   │   │   ├── Clases.jsx
+│   │   │   └── Clases.module.css
+│   │   │
+│   │   └── Contacto/            [#contacto]
+│   │       ├── Contacto.jsx
+│   │       ├── ContactForm.jsx
+│   │       └── Contacto.module.css
+│   │
+│   ├── 🎣 hooks/                [LÓGICA - 4]
+│   │   ├── useScrollToHash.js       [Scroll suave #hash]
+│   │   ├── useScrollTopButton.js    [Botón subir]
+│   │   ├── useDelayedPulse.js       [Animar después de Ns]
+│   │   ├── useFormVisibility.js     [Detectar sección visible]
+│   │   └── index.js                 [Exporta todos]
+│   │
+│   ├── ⚙️ utils/                [UTILIDADES]
+│   │   └── validators.js
+│   │       ├── normalizePhone()
+│   │       ├── isValidMXPhone()
+│   │       ├── toWhatsAppPhone()
+│   │       ├── isValidEmail()
+│   │       ├── isValidName()
+│   │       └── buildWhatsAppMessage()
+│   │
+│   ├── 🎨 styles/               [GLOBALES]
+│   │   ├── globals.css          [Variables CSS + reset]
+│   │   └── tokens.css           [Tokens de diseño]
+│   │
+│   ├── main.jsx                 ✅ [ACTUALIZADO]
+│   └── index.css                [Si Vite lo crea]
+│
+├── 📂 public/
+│   │
+│   └── 📸 images/               [12 IMÁGENES ORGANIZADAS]
+│       ├── logo-bulls.jpeg
+│       ├── logo-cosmic-flow.png
+│       │
+│       ├── hero/
+│       │   └── maestro-jiu-jitsu.jpg
+│       │
+│       ├── nosotros/
+│       │   └── clase-llena.jpg
+│       │
+│       ├── horarios/
+│       │   └── horarios.jpg
+│       │
+│       ├── clases/
+│       │   ├── jiujitsu.jpg
+│       │   ├── muaythai.jpg
+│       │   ├── box.jpg
+│       │   └── kids.jpg
+│       │
+│       └── redes/
+│           ├── facebook.jpg
+│           ├── instagram.jpg
+│           └── whatsapp.jpg
+│
+├── 📂 Imagenes de la pagina/    [CARPETA ORIGINAL - Mantenida]
+│   [Se puede eliminar si prefieres limpiar]
+│
+├── 📄 Configuración
+│   ├── package.json             ✅ [EXISTENTE]
+│   ├── vite.config.js           ✅ [EXISTENTE]
+│   ├── index.html               ✅ [EXISTENTE]
+│   └── .gitignore               [Si existe]
+│
+└── 📄 Archivos Raíz (Vanilla, pueden eliminarse)
+    ├── script.js                [Original HTML/CSS/JS]
+    ├── styles.css               [Original HTML/CSS/JS]
+    └── App.jsx (antiguo)        [Reemplazado por src/app/App.jsx]
+
+
+═══════════════════════════════════════════════════════════════════════════════
+📊 COMPONENTES Y SECCIONES
+═══════════════════════════════════════════════════════════════════════════════
+
+APLICACIÓN
+└── App.jsx
+    ├── useScrollToHash()        ← Hook para scroll
+    │
+    ├── <Header />               ← Reutilizable
+    │   └── Logo, Nav, Redes Sociales
+    │
+    ├── <main>
+    │   ├── <Hero />             ← Sección
+    │   │   └── "Encuentra tu fortaleza"
+    │   │
+    │   ├── <Nosotros />         ← Sección
+    │   │   ├── "Únete a nuestro equipo"
+    │   │   └── Valores (3x cards)
+    │   │
+    │   ├── <Horarios />         ← Sección
+    │   │   └── Imagen horarios
+    │   │
+    │   ├── <Clases />           ← Sección
+    │   │   ├── Jiu-Jitsu
+    │   │   ├── Muay Thai
+    │   │   ├── Box
+    │   │   └── Kids
+    │   │
+    │   └── <Contacto />         ← Sección
+    │       └── Formulario inteligente
+    │
+    ├── <Footer />               ← Reutilizable
+    │   └── Branding + Cosmic Flow
+    │
+    └── <FloatingActions />      ← Reutilizable
+        ├── WhatsApp (con pulso)
+        └── Botón Subir
+
+
+═══════════════════════════════════════════════════════════════════════════════
+🎯 FLUJO DE DATOS
+═══════════════════════════════════════════════════════════════════════════════
+
+Inicio de Sesión
+  ↓
+main.jsx carga styles/globals.css
+  ↓
+App.jsx se renderiza
+  ↓
+useScrollToHash() activa listener
+  ↓
+5 Secciones se renderizan (Hero, Nosotros, Horarios, Clases, Contacto)
+  ↓
+FloatingActions agrega:
+  - useScrollTopButton() [muestra botón al scroll]
+  - useDelayedPulse() [anima WhatsApp a los 5s]
+  - useFormVisibility() [oculta WhatsApp cuando contacto visible]
+  ↓
+Usuario navega/interactúa
+  ↓
+En Contacto: ContactForm valida con validators.js
+  ↓
+Si válido: Abre WhatsApp con mensaje pre-llenado
+
+
+═══════════════════════════════════════════════════════════════════════════════
+🔧 VARIABLES CSS DISPONIBLES (En todos los .module.css)
+═══════════════════════════════════════════════════════════════════════════════
+
+COLORES
+  --color-primary: #c1121f              [Rojo FBA]
+  --color-dark: #010714                 [Fondo oscuro]
+  --color-dark-secondary: #0d1a37
+  --color-text: #f5f5f5                 [Texto principal]
+  --color-text-secondary: #cfd6e4       [Texto secundario]
+  --color-text-muted: #b3b3b3
+  --color-border: rgba(255,255,255,0.12)
+  --color-success: #25d366              [WhatsApp verde]
+
+ESPACIADO
+  --spacing-xs: 8px
+  --spacing-sm: 12px
+  --spacing-md: 16px
+  --spacing-lg: 24px
+  --spacing-xl: 30px
+  --spacing-xxl: 60px
+
+BORDER RADIUS
+  --radius-sm: 12px
+  --radius-md: 16px
+  --radius-lg: 20px
+  --radius-xl: 28px
+  --radius-full: 999px
+
+SOMBRAS
+  --shadow-sm: 0 8px 22px rgba(0,0,0,0.45)
+  --shadow-md: 0 14px 34px rgba(0,0,0,0.50)
+  --shadow-lg: 0 18px 40px rgba(0,0,0,0.55)
+  --shadow-xl: 0 24px 55px rgba(0,0,0,0.65)
+
+TRANSICIONES
+  --transition-fast: 0.2s ease
+  --transition-normal: 0.25s ease
+  --transition-smooth: 0.35s ease
+
+
+═══════════════════════════════════════════════════════════════════════════════
+✨ HOOKS PERSONALIZADOS
+═══════════════════════════════════════════════════════════════════════════════
+
+useScrollToHash()
+  └─ Detecta cambios en URL (#hash)
+  └─ Hace scroll suave a la sección
+  └─ Se activa en App.jsx
+
+useScrollTopButton()
+  └─ Retorna { isVisible, scrollToTop }
+  └─ Muestra botón después de 500px de scroll
+  └─ Usado en FloatingActions
+
+useDelayedPulse(delayMs = 5000)
+  └─ Retorna boolean
+  └─ True después de N milisegundos
+  └─ Anima WhatsApp a los 5 segundos
+
+useFormVisibility(sectionId)
+  └─ Usa Intersection Observer
+  └─ Retorna true si sección visible
+  └─ Oculta WhatsApp al ver formulario
+
+
+═══════════════════════════════════════════════════════════════════════════════
+📱 RESPONSIVE BREAKPOINTS
+═══════════════════════════════════════════════════════════════════════════════
+
+Desktop:           1200px+    [Sin cambios, diseño 2 columnas]
+Tablet:            900px      [Grid 1 columna, ajustes]
+Móvil:             768px      [Reducción de espacios]
+Móvil pequeño:     480px      [Optimizado para pequeño]
+
+
+═══════════════════════════════════════════════════════════════════════════════
+🚀 CÓMO EMPEZAR
+═══════════════════════════════════════════════════════════════════════════════
+
+1. Instalar dependencias
+   npm install
+
+2. Ejecutar servidor local
+   npm run dev
+   → Abre http://localhost:5173
+
+3. Editar componentes
+   → Cambios se reflejan en tiempo real
+
+4. Build para producción
+   npm run build
+   → Genera carpeta "dist"
+
+5. Desplegar en Netlify
+   → Conecta GitHub → Netlify → ¡Automático!
+
+
+═══════════════════════════════════════════════════════════════════════════════
+📚 ARCHIVOS DE DOCUMENTACIÓN
+═══════════════════════════════════════════════════════════════════════════════
+
+ARCHITECTURE.md
+  └─ Guía técnica COMPLETA y detallada
+  └─ Explicación de cada componente
+  └─ Cómo agregar más componentes
+  └─ Deployment en Netlify
+
+SETUP.md
+  └─ Descripción general de la arquitectura
+  └─ Qué se creó y por qué
+  └─ Características incluidas
+
+QUICKSTART.md
+  └─ Guía rápida de inicio
+  └─ Comandos principales
+  └─ Ejemplos de uso
+
+SUMMARY.md
+  └─ Resumen ejecutivo
+  └─ Estadísticas del proyecto
+  └─ Checklist de completitud
+
+MIGRATION_COMPLETE.txt
+  └─ Checklist visual del proyecto
+  └─ Estadísticas
+  └─ Estructura creada
+
+
+═══════════════════════════════════════════════════════════════════════════════
+✅ CHECKLIST FINAL
+═══════════════════════════════════════════════════════════════════════════════
+
+ESTRUCTURA
+  ✅ Carpetas creadas
+  ✅ Componentes implementados
+  ✅ Secciones creadas
+  ✅ Hooks personalizados
+  ✅ Utilidades de validación
+
+COMPONENTES
+  ✅ Header (logo, nav, redes)
+  ✅ Footer (branding)
+  ✅ FloatingActions (WhatsApp + subir)
+  ✅ Button (genérico)
+  ✅ SectionTitle (títulos)
+
+SECCIONES
+  ✅ Hero (inicio)
+  ✅ Nosotros (equipo + valores)
+  ✅ Horarios (imagen)
+  ✅ Clases (4 disciplinas)
+  ✅ Contacto (formulario)
+
+FUNCIONALIDAD
+  ✅ Scroll suave a secciones
+  ✅ Validación inteligente
+  ✅ Envío a WhatsApp
+  ✅ Botones flotantes
+  ✅ Responsive design
+  ✅ Dark mode
+
+ESTILOS
+  ✅ CSS Modules
+  ✅ Variables globales
+  ✅ Media queries
+  ✅ Animaciones
+
+IMÁGENES
+  ✅ 12 imágenes organizadas
+  ✅ Rutas correctas
+  ✅ Optimizadas
+
+DOCUMENTACIÓN
+  ✅ ARCHITECTURE.md
+  ✅ SETUP.md
+  ✅ QUICKSTART.md
+  ✅ SUMMARY.md
+  ✅ MIGRATION_COMPLETE.txt
+  ✅ PROJECT_STRUCTURE.txt
+
+DEPLOY
+  ✅ Vite configurado
+  ✅ React instalado
+  ✅ Ready para Netlify
+
+
+═══════════════════════════════════════════════════════════════════════════════
+🎊 ESTADO ACTUAL
+═══════════════════════════════════════════════════════════════════════════════
+
+┌─────────────────────────────────────────────────┐
+│  ✅ PROYECTO COMPLETADO Y LISTO PARA USAR      │
+├─────────────────────────────────────────────────┤
+│  Archivos creados:        40                    │
+│  Imágenes organizadas:    12                    │
+│  Documentación:           6 archivos            │
+│  Estado:                  ✅ PRODUCCIÓN         │
+└─────────────────────────────────────────────────┘
+
+
+═══════════════════════════════════════════════════════════════════════════════
+🔗 RUTAS DE NAVEGACIÓN
+═══════════════════════════════════════════════════════════════════════════════
+
+http://localhost:5173/           → Inicio (Home)
+http://localhost:5173/#inicio    → Sección Hero
+http://localhost:5173/#nosotros  → Sección Nosotros
+http://localhost:5173/#horarios  → Sección Horarios
+http://localhost:5173/#clases    → Sección Clases
+http://localhost:5173/#contacto  → Sección Contacto (Formulario)
+
+
+═══════════════════════════════════════════════════════════════════════════════
+🎯 PRÓXIMOS PASOS
+═══════════════════════════════════════════════════════════════════════════════
+
+1. Lee QUICKSTART.md para guía rápida
+2. Ejecuta: npm install
+3. Ejecuta: npm run dev
+4. Abre: http://localhost:5173
+5. ¡Edita y disfruta del hot reload!
+6. Cuando estés listo: npm run build
+7. Despliega en Netlify
+
+
+═══════════════════════════════════════════════════════════════════════════════
+💡 TIPS IMPORTANTES
+═══════════════════════════════════════════════════════════════════════════════
+
+• Usa variables CSS en todos tus .module.css
+• Cada sección debe tener su propia carpeta
+• Los hooks evitan duplicación de lógica
+• CSS Modules previenen conflictos de nombres
+• Agrega nuevos componentes en src/components/
+• Agrega nuevas secciones en src/sections/
+• Las imágenes van en public/images/ (ruta: /images/...)
+• El formulario valida automáticamente
+• WhatsApp se abre al enviar formulario válido
+• El botón "subir" aparece al scrollear 500px
+• El WhatsApp se oculta al ver el formulario
+
+
+═══════════════════════════════════════════════════════════════════════════════
+                            ✨ PROYECTO COMPLETADO ✨
+                              Enero 18, 2026
+═══════════════════════════════════════════════════════════════════════════════

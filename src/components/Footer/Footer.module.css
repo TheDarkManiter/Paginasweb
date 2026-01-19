@@ -1,0 +1,145 @@
+.footer {
+  margin-top: var(--spacing-xxl);
+  padding: var(--spacing-lg) var(--spacing-xl) var(--spacing-lg);
+  background: linear-gradient(
+    to top,
+    rgba(1, 7, 20, 0.95),
+    rgba(1, 7, 20, 0.85)
+  );
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  position: relative;
+  z-index: 50;
+}
+
+.content {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-xl);
+  text-align: center;
+}
+
+.brand {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-xs);
+}
+
+.logo {
+  width: 72px;
+  height: 72px;
+  object-fit: contain;
+  border-radius: 50%;
+  padding: var(--spacing-xs);
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.14),
+    rgba(255, 255, 255, 0.04)
+  );
+  box-shadow:
+    var(--shadow-sm),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.15);
+  user-select: none;
+  will-change: transform;
+}
+
+.name {
+  font-size: 16px;
+  font-weight: 800;
+  letter-spacing: 0.6px;
+  color: var(--color-text);
+  margin: 0;
+  user-select: none;
+}
+
+.copy {
+  font-size: 13px;
+  color: var(--color-text-secondary);
+  opacity: 0.8;
+  margin: 0;
+}
+
+.divider {
+  width: 1px;
+  height: 80px;
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.powered {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-xs);
+}
+
+.poweredText {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--color-text-secondary);
+  opacity: 0.75;
+  user-select: none;
+}
+
+.cosmic {
+  width: 64px;
+  height: 64px;
+}
+
+.poweredName {
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.6px;
+  color: var(--color-text-secondary);
+  opacity: 0.9;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .footer {
+    padding: var(--spacing-md) var(--spacing-lg);
+  }
+
+  .content {
+    flex-direction: column;
+    gap: var(--spacing-lg);
+  }
+
+  .divider {
+    width: 60px;
+    height: 1px;
+  }
+}
+
+/* Mobile pequeño */
+@media (max-width: 480px) {
+  .footer {
+    padding: var(--spacing-md) var(--spacing-sm);
+    margin-top: var(--spacing-lg);
+  }
+
+  .logo {
+    width: 60px;
+    height: 60px;
+  }
+
+  .name {
+    font-size: 14px;
+  }
+
+  .copy {
+    font-size: 12px;
+  }
+
+  .cosmic {
+    width: 52px;
+    height: 52px;
+  }
+
+  .poweredName {
+    font-size: 12px;
+  }
+}
