@@ -173,7 +173,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // ---------- Submit ----------
-  form.addEventListener("submit", (e) => {
+  form.addEventListener("submit", async (e) => {
     e.preventDefault();
 
     const result = validate();
@@ -194,6 +194,28 @@ document.addEventListener("DOMContentLoaded", () => {
       horario: horario?.options[horario.selectedIndex]?.text || "",
       mensaje: (mensaje?.value || "").trim(),
     };
+
+    let leadSaved = false;
+    try {
+      const response = await fetch("/.netlify/functions/create-lead", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+      const resultBody = await response.json().catch(() => null);
+      if (!response.ok) {
+        console.error("Lead save failed:", resultBody);
+        alert("No pudimos guardar tus datos. Intenta de nuevo en un momento.");
+        return;
+      }
+      leadSaved = true;
+    } catch (err) {
+      console.error("Lead save error:", err);
+      alert("No pudimos guardar tus datos. Intenta de nuevo en un momento.");
+      return;
+    }
+
+    if (!leadSaved) return;
 
     // Abrir WhatsApp (alta conversión)
     const text = encodeURIComponent(buildWhatsAppMessage(data));
