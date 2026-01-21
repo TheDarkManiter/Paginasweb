@@ -7,6 +7,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const form = document.querySelector("#contacto form");
   if (!form) return;
 
+  const status = document.getElementById("formStatus");
+
   // Inputs según tu HTML
   const nombre = document.getElementById("nombre");
   const telefono = document.getElementById("telefono");
@@ -20,9 +22,28 @@ document.addEventListener("DOMContentLoaded", () => {
   const WHATSAPP_NUMBER = "5215579389286"; // formato wa.me (521 + 10 dígitos)
 
   // ---------- Helpers UI ----------
+  function setStatus(msg, type = "error") {
+    if (!status) return;
+    status.textContent = msg;
+    status.classList.add("show");
+    status.classList.toggle("error", type === "error");
+    status.classList.toggle("success", type === "success");
+  }
+
+  function clearStatus() {
+    if (!status) return;
+    status.textContent = "";
+    status.classList.remove("show", "error", "success");
+  }
+
   function setError(input, msg) {
     clearError(input);
     input.classList.add("is-invalid");
+    input.setAttribute("aria-invalid", "true");
+
+    if (!status || !status.textContent) {
+      setStatus(msg, "error");
+    }
 
     const small = document.createElement("small");
     small.className = "field-error";
@@ -33,11 +54,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function clearError(input) {
     input.classList.remove("is-invalid");
+    input.removeAttribute("aria-invalid");
     const next = input.nextElementSibling;
     if (next && next.classList.contains("field-error")) next.remove();
   }
 
   function clearAllErrors() {
+    clearStatus();
     [nombre, telefono, email, interes, edad, horario, mensaje].forEach((el) => {
       if (el) clearError(el);
     });
@@ -142,7 +165,10 @@ document.addEventListener("DOMContentLoaded", () => {
   // Validación al escribir (más “inteligente”)
   [nombre, telefono, email].forEach((input) => {
     if (!input) return;
-    input.addEventListener("input", () => clearError(input));
+    input.addEventListener("input", () => {
+      clearError(input);
+      clearStatus();
+    });
     input.addEventListener("blur", () => {
       // micro-validación al salir del campo
       if (input === telefono) {
@@ -169,7 +195,10 @@ document.addEventListener("DOMContentLoaded", () => {
   [interes, edad, horario, mensaje].forEach((input) => {
     if (!input) return;
     input.addEventListener("change", () => clearError(input));
-    input.addEventListener("input", () => clearError(input));
+    input.addEventListener("input", () => {
+      clearError(input);
+      clearStatus();
+    });
   });
 
   // ---------- Submit ----------
@@ -177,6 +206,9 @@ document.addEventListener("DOMContentLoaded", () => {
     e.preventDefault();
 
     const result = validate();
+    if (!result.ok && status && !status.textContent) {
+      setStatus("Revisa los campos marcados.", "error");
+    }
     if (!result.ok) {
       // Enfoca el primer error
       const firstInvalid = form.querySelector(".is-invalid");
@@ -224,6 +256,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Opcional: feedback visual + reset
     form.reset();
+    clearStatus();
   });
 });
 
