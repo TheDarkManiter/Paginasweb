@@ -249,6 +249,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (!leadSaved) return;
 
+    if (typeof window.fbq === "function") {
+      // Track only after the backend confirms the lead was saved.
+      window.fbq("track", "Lead");
+    }
+
     // Abrir WhatsApp (alta conversión)
     const text = encodeURIComponent(buildWhatsAppMessage(data));
     const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${text}`;

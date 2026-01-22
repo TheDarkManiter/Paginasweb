@@ -1,3 +1,41 @@
+/* TEMP: Global stylesheet while React migration is in progress. */
+:root {
+  /* Colores */
+  --color-primary: #c1121f;
+  --color-dark: #010714;
+  --color-dark-secondary: #0d1a37;
+  --color-text: #f5f5f5;
+  --color-text-secondary: #cfd6e4;
+  --color-text-muted: #b3b3b3;
+  --color-border: rgba(255, 255, 255, 0.12);
+  --color-success: #25d366;
+
+  /* Espaciado */
+  --spacing-xs: 8px;
+  --spacing-sm: 12px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 30px;
+  --spacing-xxl: 60px;
+
+  /* Border Radius */
+  --radius-sm: 12px;
+  --radius-md: 16px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+  --radius-full: 999px;
+
+  /* Sombras */
+  --shadow-sm: 0 8px 22px rgba(0, 0, 0, 0.45);
+  --shadow-md: 0 14px 34px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 18px 40px rgba(0, 0, 0, 0.55);
+  --shadow-xl: 0 24px 55px rgba(0, 0, 0, 0.65);
+
+  /* Transiciones */
+  --transition-fast: 0.2s ease;
+  --transition-normal: 0.25s ease;
+  --transition-smooth: 0.35s ease;
+}
 /*=========================
     LOGO
 =========================*/
@@ -34,6 +72,7 @@
 ========================= */
 body{
   background-color: #010714;
+  color: var(--color-text);
   position: relative;
   margin: 0;
   min-height: 100vh;
