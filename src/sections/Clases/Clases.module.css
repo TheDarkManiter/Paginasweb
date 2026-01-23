@@ -127,3 +127,22 @@
     height: 240px;
   }
 }
+
+@media (max-width: 600px) {
+  .container {
+    padding: 0 var(--spacing-lg);
+  }
+
+  .item {
+    padding: var(--spacing-md);
+    gap: var(--spacing-md);
+  }
+
+  .name {
+    font-size: 22px;
+  }
+
+  .media img {
+    height: 220px;
+  }
+}

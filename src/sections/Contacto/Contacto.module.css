@@ -125,3 +125,24 @@
     padding: var(--spacing-lg);
   }
 }
+
+@media (max-width: 600px) {
+  .section {
+    padding: var(--spacing-lg) var(--spacing-md);
+  }
+
+  .form {
+    gap: var(--spacing-md);
+    padding: var(--spacing-md);
+  }
+
+  .form label {
+    font-size: 13px;
+  }
+
+  .form input,
+  .form select,
+  .form textarea {
+    font-size: 15px;
+  }
+}

@@ -39,6 +39,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  margin-top: 150px;
 }
 
 .text p {
@@ -70,6 +71,26 @@
   }
 
   .text {
-    margin-top: 100px;
+    margin-top: 150px;
+  }
+}
+
+@media (max-width: 600px) {
+  .section {
+    padding: var(--spacing-lg) 0 var(--spacing-xl);
+  }
+
+  .layout {
+    padding: 0 var(--spacing-lg);
+    gap: var(--spacing-md);
+  }
+
+  .image img {
+    margin-top: 40px;
+  }
+
+  .text {
+    padding: var(--spacing-md) 0;
+    margin-top: 150px;
   }
 }
