@@ -1,11 +1,67 @@
+import { useRef } from 'react';
 import styles from './Nosotros.module.css';
 
 export function Nosotros() {
+  const carouselRef = useRef(null);
   const values = [
     { icon: '🔥', label: 'Disciplina' },
     { icon: '🤝', label: 'Respeto' },
     { icon: '🛡️', label: 'Lealtad' },
   ];
+  const carouselImages = [
+    {
+      src: '/images/nosotros/carousel/cambio-grado-muay-thai.webp',
+      alt: 'Cambio de grado en Muay Thai',
+    },
+    { src: '/images/nosotros/carousel/chicas-fba-2.webp', alt: 'Chicas FBA' },
+    {
+      src: '/images/nosotros/carousel/clase-muay-thai.webp',
+      alt: 'Clase de Muay Thai',
+    },
+    {
+      src: '/images/nosotros/carousel/graduacion-bulls.webp',
+      alt: 'Graduación Bulls',
+    },
+    {
+      src: '/images/nosotros/carousel/graduaciones-bulls.webp',
+      alt: 'Graduaciones Bulls',
+    },
+    {
+      src: '/images/nosotros/carousel/maestros-en-graduacion.webp',
+      alt: 'Maestros durante ceremonia de graduación en Fighting Bulls Academy',
+    },
+    {
+      src: '/images/nosotros/carousel/clase-jiujitsu-fba.webp',
+      alt: 'Clase de Jiu Jitsu en Fighting Bulls Academy',
+    },
+    {
+      src: '/images/nosotros/carousel/clase-muay-thai-llena.webp',
+      alt: 'Clase llena de Muay Thai en Fighting Bulls Academy',
+    },
+  ];
+  const handleCarouselScroll = (direction) => {
+    if (!carouselRef.current) return;
+    const { scrollLeft, scrollWidth, clientWidth } = carouselRef.current;
+    const maxScroll = Math.max(0, scrollWidth - clientWidth);
+    const nearStart = scrollLeft <= 5;
+    const nearEnd = scrollLeft >= maxScroll - 5;
+
+    if (direction > 0 && nearEnd) {
+      carouselRef.current.scrollTo({ left: 0, behavior: 'smooth' });
+      return;
+    }
+
+    if (direction < 0 && nearStart) {
+      carouselRef.current.scrollTo({ left: maxScroll, behavior: 'smooth' });
+      return;
+    }
+
+    const scrollAmount = Math.round(clientWidth * 0.8);
+    carouselRef.current.scrollBy({
+      left: direction * scrollAmount,
+      behavior: 'smooth',
+    });
+  };
 
   return (
     <section id="nosotros" className={styles.section}>
@@ -29,6 +85,36 @@ export function Nosotros() {
               aquí te ayudamos a formar a tu nuevo yo.
             </p>
           </div>
+        </div>
+
+        <div className={styles.carousel}>
+          <button
+            type="button"
+            className={`${styles.carouselArrow} ${styles.carouselArrowLeft}`}
+            aria-label="Ver imágenes anteriores"
+            onClick={() => handleCarouselScroll(-1)}
+          >
+            ‹
+          </button>
+          <div ref={carouselRef} className={styles.carouselTrack}>
+            {carouselImages.map((img, i) => (
+              <img
+                key={i}
+                src={img.src}
+                alt={img.alt}
+                loading="lazy"
+                draggable="false"
+              />
+            ))}
+          </div>
+          <button
+            type="button"
+            className={`${styles.carouselArrow} ${styles.carouselArrowRight}`}
+            aria-label="Ver imágenes siguientes"
+            onClick={() => handleCarouselScroll(1)}
+          >
+            ›
+          </button>
         </div>
 
         <h3>Valores</h3>
