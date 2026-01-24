@@ -7,6 +7,7 @@ import { Clases } from '../sections/Clases/Clases';
 import { Contacto } from '../sections/Contacto/Contacto';
 import { Footer } from '../components/Footer/Footer';
 import { FloatingActions } from '../components/FloatingActions/FloatingActions';
+import styles from './App.module.css';
 
 export function App() {
   // Hook para scroll suave a secciones
@@ -16,8 +17,10 @@ export function App() {
     <>
       <Header />
       <main>
-        <Hero />
-        <Nosotros />
+        <div className={styles.heroNosotros}>
+          <Hero />
+          <Nosotros />
+        </div>
         <Horarios />
         <Clases />
         <Contacto />

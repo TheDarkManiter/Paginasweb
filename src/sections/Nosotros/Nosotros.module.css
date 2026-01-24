@@ -16,6 +16,13 @@
   padding: var(--spacing-lg) 0;
   flex-direction: row-reverse;
   margin-top: -100px;
+  background: rgba(6, 6, 6, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-xl);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(6px);
+  padding-left: var(--spacing-lg);
+  padding-right: var(--spacing-lg);
 }
 
 .joinImg {
@@ -165,6 +172,11 @@
   grid-template-columns: repeat(3, minmax(160px, 1fr));
   gap: 16px;
   max-width: 900px;
+  background: rgba(6, 6, 6, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: var(--radius-xl);
+  padding: var(--spacing-md);
+  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.3);
 }
 
 .valuesList li {
@@ -237,6 +249,8 @@
 
   .joinBlock {
     flex-direction: column;
+    padding-left: var(--spacing-md);
+    padding-right: var(--spacing-md);
   }
 
   .joinImg,
