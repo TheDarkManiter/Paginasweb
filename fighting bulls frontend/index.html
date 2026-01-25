@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="es-MX">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Meta Pixel Code -->
+    <script>
+      !function(f, b, e, v, n, t, s) {
+        if (f.fbq) return;
+        n = f.fbq = function() {
+          n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments);
+        };
+        if (!f._fbq) f._fbq = n;
+        n.push = n;
+        n.loaded = !0;
+        n.version = '2.0';
+        n.queue = [];
+        t = b.createElement(e);
+        t.async = !0;
+        t.src = v;
+        s = b.getElementsByTagName(e)[0];
+        s.parentNode.insertBefore(t, s);
+      }(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
+      if (typeof fbq === 'function') {
+        fbq('init', '1241654384549513');
+        fbq('track', 'PageView');
+      }
+      // Dispara "Lead" solo tras confirmación real del backend (no aquí).
+    </script>
+    <!-- End Meta Pixel Code -->
+    <!-- ===============================
+     SEO BÁSICO
+    ================================ -->
+    <title>Fighting Bulls Academy | Entrenamiento real, comunidad con propósito</title>
+    <meta
+      name="description"
+      content="Academia de artes marciales y entrenamiento funcional en Estado de México. Jiu-Jitsu, Muay Thai, MMA y formación real para todas las edades."
+    />
+    <meta name="language" content="es-MX" />
+    <meta name="robots" content="index, follow" />
+    <meta name="format-detection" content="telephone=no" />
+    <link rel="canonical" href="https://fightingbullsacademy.pages.dev/" />
+
+    <!-- ===============================
+     OPEN GRAPH (WhatsApp, Facebook, LinkedIn)
+     Nota: hay 2 variantes de OG. La v2 (light) se usa en Twitter/X para
+     optimizar peso y pruebas de campañas sin afectar la imagen principal.
+    ================================ -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Fighting Bulls Academy" />
+    <meta property="og:title" content="Fighting Bulls Academy" />
+    <meta property="og:description" content="Entrenamiento real. Disciplina, respeto y lealtad. Jiu-Jitsu, Muay Thai y MMA en un ambiente seguro y profesional." />
+    <meta property="og:url" content="https://fightingbullsacademy.pages.dev/" />
+    <meta property="og:image" content="https://fightingbullsacademy.pages.dev/og-image.png" />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Fighting Bulls Academy - Artes marciales y entrenamiento funcional" />
+    <meta property="og:locale" content="es_MX" />
+
+    <!-- ===============================
+     TWITTER / X
+    ================================ -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Fighting Bulls Academy" />
+    <meta name="twitter:description" content="Academia de artes marciales. Forma tu carácter, tu cuerpo y tu mente." />
+    <meta name="twitter:image" content="https://fightingbullsacademy.pages.dev/og-image-v2.jpg" />
+    <meta name="twitter:image:alt" content="Fighting Bulls Academy - Artes marciales y entrenamiento funcional" />
+
+    <!-- ===============================
+     FAVICONS
+    ================================ -->
+    <link rel="icon" type="image/x-icon" href="/logo-bulls.ico" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16.png" />
+    <link rel="apple-touch-icon" href="/favicons/apple-touch-icon.png" />
+
+    <meta name="theme-color" content="#010714" />
+  </head>
+  <body>
+    <noscript>
+      <img
+        height="1"
+        width="1"
+        style="display:none"
+        src="https://www.facebook.com/tr?id=1241654384549513&ev=PageView&noscript=1"
+        alt=""
+      />
+    </noscript>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

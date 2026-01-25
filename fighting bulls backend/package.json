@@ -1,0 +1,26 @@
+{
+  "name": "fba-backend",
+  "version": "0.1.0",
+  "private": true,
+  "type": "commonjs",
+  "main": "src/server.js",
+  "scripts": {
+    "db:ping": "node -e \"require('dotenv').config(); const {pool}=require('./src/db/pool'); pool.query('SELECT NOW() as now').then(r=>console.log('DB OK', r.rows[0])).catch(console.error).finally(()=>process.exit())\"",
+    "dev": "nodemon src/server.js",
+    "start": "node src/server.js"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.6",
+    "dotenv": "^16.6.1",
+    "express": "^4.22.1",
+    "helmet": "^7.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "morgan": "^1.10.0",
+    "pg": "^8.17.2",
+    "zod": "^3.25.76"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.4"
+  }
+}
