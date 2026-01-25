@@ -49,7 +49,7 @@ body::before{
   inset: 0;
   z-index: -2;
 
-  background-image: url("Imagenes de la pagina/logo bulls.jpeg");
+  background-image: url("/images/logo-bulls.jpeg");
   background-repeat: repeat;
   background-size: 250px;
   background-position: 0 0;
