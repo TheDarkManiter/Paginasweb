@@ -13,10 +13,18 @@ const errorHandler = require('./middlewares/error-handler');
 const app = express();
 
 app.use(helmet());
+const corsOrigins = process.env.CORS_ORIGIN
+  ? process.env.CORS_ORIGIN.split(',')
+      .map((origin) => origin.trim())
+      .filter(Boolean)
+  : null;
+
+if (corsOrigins && !corsOrigins.includes('http://localhost:5173')) {
+  corsOrigins.push('http://localhost:5173');
+}
+
 app.use(cors({
-  origin: process.env.CORS_ORIGIN
-    ? process.env.CORS_ORIGIN.split(',').map((origin) => origin.trim()).filter(Boolean)
-    : true
+  origin: corsOrigins || true
 }));
 app.use(express.json({ limit: '1mb' }));
 app.use(morgan('dev'));
