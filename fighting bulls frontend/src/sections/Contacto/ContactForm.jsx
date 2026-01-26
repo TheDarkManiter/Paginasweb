@@ -119,8 +119,11 @@ export function ContactForm() {
     };
 
     try {
-      // Enviar datos a Netlify Function (backend)
-      const response = await fetch('/.netlify/functions/create-lead', {
+      const apiBase = (import.meta.env.VITE_API_URL || '').replace(/\/$/, '');
+      const endpoint = `${apiBase}/api/contact`;
+
+      // Enviar datos al backend
+      const response = await fetch(endpoint, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

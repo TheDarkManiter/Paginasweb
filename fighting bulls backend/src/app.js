@@ -3,6 +3,9 @@ const cors = require('cors');
 const helmet = require('helmet');
 const morgan = require('morgan');
 
+const validateRequest = require('./middlewares/validate-request');
+const { contactSchema } = require('./schemas/contact.schema');
+const { postContact } = require('./controllers/contact.controller');
 const contactRoutes = require('./routes/contact.routes');
 const enrollmentsRouter = require('./routes/enrollments.routes');
 const errorHandler = require('./middlewares/error-handler');
@@ -22,6 +25,7 @@ app.get('/health', (req, res) => {
   res.json({ ok: true });
 });
 
+app.post('/.netlify/functions/create-lead', validateRequest(contactSchema), postContact);
 app.use('/api', contactRoutes);
 app.use('/api/v1/enrollments', enrollmentsRouter);
 
