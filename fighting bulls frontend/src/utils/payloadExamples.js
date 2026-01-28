@@ -191,7 +191,7 @@ async function testSubmitPayload(payload) {
   console.log('📤 Enviando payload:', payload);
   
   try {
-    const response = await fetch('/.netlify/functions/create-lead', {
+    const response = await fetch('/api/leads', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
