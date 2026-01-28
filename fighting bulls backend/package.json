@@ -4,6 +4,9 @@
   "private": true,
   "type": "commonjs",
   "main": "src/server.js",
+  "engines": {
+    "node": ">=20"
+  },
   "scripts": {
     "db:ping": "node -e \"require('dotenv').config(); const {pool}=require('./src/db/pool'); pool.query('SELECT NOW() as now').then(r=>console.log('DB OK', r.rows[0])).catch(console.error).finally(()=>process.exit())\"",
     "dev": "nodemon src/server.js",

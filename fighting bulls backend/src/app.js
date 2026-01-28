@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
 const morgan = require('morgan');
+const { pool } = require('./db/pool');
 
 const validateRequest = require('./middlewares/validate-request');
 const { contactSchema } = require('./schemas/contact.schema');
@@ -31,6 +32,15 @@ app.use(morgan('dev'));
 
 app.get('/health', (req, res) => {
   res.json({ ok: true });
+});
+
+app.get('/health/db', async (req, res, next) => {
+  try {
+    await pool.query('SELECT 1');
+    res.json({ ok: true });
+  } catch (err) {
+    next(err);
+  }
 });
 
 app.post('/.netlify/functions/create-lead', validateRequest(contactSchema), postContact);
