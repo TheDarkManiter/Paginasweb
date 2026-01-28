@@ -12,8 +12,7 @@ function toAgeRange(value) {
     if (numeric <= 24) return "18-24";
     if (numeric <= 34) return "25-34";
     if (numeric <= 44) return "35-44";
-    if (numeric <= 54) return "45-54";
-    return "55+";
+    return "45+";
   }
 
   return String(value);
