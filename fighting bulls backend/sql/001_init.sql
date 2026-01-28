@@ -13,6 +13,9 @@ CREATE TABLE IF NOT EXISTS contact_leads (
   created_at timestamptz NOT NULL DEFAULT now()
 );
 
+CREATE INDEX IF NOT EXISTS idx_contact_leads_created_at ON contact_leads (created_at DESC);
+CREATE INDEX IF NOT EXISTS idx_contact_leads_email ON contact_leads (email);
+
 CREATE TABLE IF NOT EXISTS enrollments (
   id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
   status text NOT NULL DEFAULT 'new' CHECK (status IN ('new', 'contacted', 'archived')),
@@ -28,3 +31,4 @@ CREATE TABLE IF NOT EXISTS enrollments (
 );
 
 CREATE INDEX IF NOT EXISTS idx_enrollments_created_at ON enrollments (created_at DESC);
+CREATE INDEX IF NOT EXISTS idx_enrollments_email ON enrollments (email);

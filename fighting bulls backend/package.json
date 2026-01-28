@@ -8,6 +8,11 @@
     "node": ">=20"
   },
   "scripts": {
+    "db:up": "docker compose up -d",
+    "db:down": "docker compose down",
+    "db:logs": "docker logs fba_postgres --tail 100",
+    "db:psql": "docker exec -it fba_postgres psql -U fba -d fba_dev",
+    "db:init": "node scripts/run-sql.js",
     "db:ping": "node -e \"require('dotenv').config(); const {pool}=require('./src/db/pool'); pool.query('SELECT NOW() as now').then(r=>console.log('DB OK', r.rows[0])).catch(console.error).finally(()=>process.exit())\"",
     "dev": "nodemon src/server.js",
     "start": "node src/server.js"
