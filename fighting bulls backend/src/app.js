@@ -19,7 +19,6 @@ app.get('/health/db', async (req, res, next) => {
   }
 });
 
-app.post('/.netlify/functions/create-lead', validateRequest(contactSchema), postContact);
 app.use('/api', contactRoutes);
 app.use('/api/v1/enrollments', enrollmentsRouter);
 
