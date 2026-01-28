@@ -8,6 +8,7 @@ import {
   buildWhatsAppMessage,
 } from '../../utils/validators';
 import { getWhatsAppLink } from '../../config/contact';
+import { apiPost } from '../../services/api';
 import { Button } from '../../components/Button/Button';
 import styles from './ContactForm.module.css';
 
@@ -48,14 +49,14 @@ export function ContactForm() {
       if (value.trim() && !isValidMXPhone(digits)) {
         setErrors((prev) => ({
           ...prev,
-          telefono: 'Teléfono inválido. Usa 10 dígitos o +52.',
+          telefono: 'TelÃ©fono invÃ¡lido. Usa 10 dÃ­gitos o +52.',
         }));
       }
     } else if (name === 'nombre') {
       if (value.trim() && !isValidName(value)) {
         setErrors((prev) => ({
           ...prev,
-          nombre: 'Escribe tu nombre (mínimo 2 caracteres).',
+          nombre: 'Escribe tu nombre (mÃ­nimo 2 caracteres).',
         }));
       }
     } else if (name === 'email') {
@@ -63,7 +64,7 @@ export function ContactForm() {
       if (v && !isValidEmail(v)) {
         setErrors((prev) => ({
           ...prev,
-          email: 'Correo inválido. Revisa el formato.',
+          email: 'Correo invÃ¡lido. Revisa el formato.',
         }));
       }
     }
@@ -77,13 +78,13 @@ export function ContactForm() {
     const interesVal = formData.interes;
 
     if (!isValidName(nombreVal)) {
-      newErrors.nombre = 'Escribe tu nombre (mínimo 2 caracteres).';
+      newErrors.nombre = 'Escribe tu nombre (mÃ­nimo 2 caracteres).';
     }
 
     if (!telDigits) {
-      newErrors.telefono = 'Escribe tu teléfono / WhatsApp.';
+      newErrors.telefono = 'Escribe tu telÃ©fono / WhatsApp.';
     } else if (!isValidMXPhone(telDigits)) {
-      newErrors.telefono = 'Teléfono inválido. Usa 10 dígitos o +52.';
+      newErrors.telefono = 'TelÃ©fono invÃ¡lido. Usa 10 dÃ­gitos o +52.';
     }
 
     if (!interesVal) {
@@ -92,7 +93,7 @@ export function ContactForm() {
 
     const emailVal = formData.email.trim();
     if (emailVal && !isValidEmail(emailVal)) {
-      newErrors.email = 'Correo inválido. Revisa el formato.';
+      newErrors.email = 'Correo invÃ¡lido. Revisa el formato.';
     }
 
     setErrors(newErrors);
@@ -119,31 +120,16 @@ export function ContactForm() {
     };
 
     try {
-      const apiBase = (import.meta.env.VITE_API_URL || '').replace(/\/$/, '');
-      const endpoint = `${apiBase}/api/contact`;
+      const { data: responseBody, status, ok } = await apiPost('/api/leads', data);
+      const success = ok && (status === 200 || status === 201) && responseBody?.ok !== false;
 
-      // Enviar datos al backend
-      const response = await fetch(endpoint, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-      });
+      if (success) {
+        const message = responseBody?.message || 'Â¡Solicitud registrada exitosamente!';
+        setSubmitStatus({ type: 'success', message });
 
-      const result = await response.json();
+        const whatsappUrl = getWhatsAppLink(buildWhatsAppMessage(data));
+        window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
 
-      if (result.ok) {
-        // ✅ Éxito: Mostrar mensaje y abrir WhatsApp opcional
-        setSubmitStatus({ type: 'success', message: result.message || '¡Solicitud registrada exitosamente!' });
-
-        // Opcionalmente: Abrir WhatsApp para seguimiento
-        const whatsappUrl = getWhatsAppLink(
-          `Hola, soy ${data.nombre}. Acabo de registrarme en tu academia. Interesado en ${data.interes}.`
-        );
-        window.open(whatsappUrl, '_blank');
-
-        // Reset form
         setFormData({
           nombre: '',
           telefono: '',
@@ -154,19 +140,19 @@ export function ContactForm() {
           mensaje: '',
         });
         setErrors({});
-      } else {
-        // ❌ Error en la respuesta
-        setSubmitStatus({
-          type: 'error',
-          message: result.error || 'Error al procesar tu solicitud. Intenta de nuevo.',
-        });
+        return;
       }
+
+      setSubmitStatus({
+        type: 'error',
+        message: responseBody?.error || responseBody?.message || 'Error al procesar tu solicitud. Intenta de nuevo.',
+      });
     } catch (error) {
-      // ❌ Error de red o parsing
+      // âŒ Error de red o parsing
       console.error('[ContactForm] Error:', error);
       setSubmitStatus({
         type: 'error',
-        message: 'Error de conexión. Por favor, intenta de nuevo.',
+        message: 'Error de conexiÃ³n. Por favor, intenta de nuevo.',
       });
     } finally {
       setIsSubmitting(false);
@@ -192,7 +178,7 @@ export function ContactForm() {
       </div>
 
       <div>
-        <label htmlFor="telefono">Teléfono / WhatsApp *</label>
+        <label htmlFor="telefono">TelÃ©fono / WhatsApp *</label>
         <input
           type="tel"
           id="telefono"
@@ -208,7 +194,7 @@ export function ContactForm() {
       </div>
 
       <div>
-        <label htmlFor="email">Correo electrónico (opcional)</label>
+        <label htmlFor="email">Correo electrÃ³nico (opcional)</label>
         <input
           type="email"
           id="email"
@@ -223,7 +209,7 @@ export function ContactForm() {
       </div>
 
       <div>
-        <label htmlFor="interes">¿Qué clase te interesa? *</label>
+        <label htmlFor="interes">Â¿QuÃ© clase te interesa? *</label>
         <select
           id="interes"
           name="interes"
@@ -232,13 +218,13 @@ export function ContactForm() {
           onChange={handleChange}
           className={errors.interes ? styles.invalid : ''}
         >
-          <option value="">Selecciona una opción</option>
+          <option value="">Selecciona una opciÃ³n</option>
           <option value="Jiu-Jitsu">Jiu-Jitsu</option>
           <option value="Muay Thai">Muay Thai</option>
           <option value="Box">Box</option>
-          <option value="Clases para niños">Clases para niños</option>
+          <option value="Clases para niÃ±os">Clases para niÃ±os</option>
           <option value="Varias disciplinas">Varias disciplinas</option>
-          <option value="Solo información">Solo información</option>
+          <option value="Solo informaciÃ³n">Solo informaciÃ³n</option>
         </select>
         {errors.interes && <small className={styles.error}>{errors.interes}</small>}
       </div>
@@ -252,10 +238,10 @@ export function ContactForm() {
           onChange={handleChange}
         >
           <option value="">Selecciona un rango</option>
-          <option value="6 – 10 años">6 – 10 años</option>
-          <option value="11 – 14 años">11 – 14 años</option>
-          <option value="15 – 17 años">15 – 17 años</option>
-          <option value="18 años o más">18 años o más</option>
+          <option value="6 â€“ 10 aÃ±os">6 â€“ 10 aÃ±os</option>
+          <option value="11 â€“ 14 aÃ±os">11 â€“ 14 aÃ±os</option>
+          <option value="15 â€“ 17 aÃ±os">15 â€“ 17 aÃ±os</option>
+          <option value="18 aÃ±os o mÃ¡s">18 aÃ±os o mÃ¡s</option>
         </select>
       </div>
 
@@ -268,7 +254,7 @@ export function ContactForm() {
           onChange={handleChange}
         >
           <option value="">Selecciona un horario</option>
-          <option value="Mañana">Mañana</option>
+          <option value="MaÃ±ana">MaÃ±ana</option>
           <option value="Tarde">Tarde</option>
           <option value="Noche">Noche</option>
         </select>
@@ -280,19 +266,19 @@ export function ContactForm() {
           id="mensaje"
           name="mensaje"
           rows="4"
-          placeholder="Cuéntanos si tienes experiencia previa y tu disponibilidad de horario"
+          placeholder="CuÃ©ntanos si tienes experiencia previa y tu disponibilidad de horario"
           value={formData.mensaje}
           onChange={handleChange}
         ></textarea>
       </div>
 
-      {/* Mostrar estado de envío (éxito o error) */}
+      {/* Mostrar estado de envÃ­o (Ã©xito o error) */}
       {submitStatus && (
         <div 
           className={`${styles.fullWidth} ${styles.submitMessage} ${styles[submitStatus.type]}`}
           role="alert"
         >
-          {submitStatus.type === 'success' ? '✅' : '❌'} {submitStatus.message}
+          {submitStatus.type === 'success' ? 'âœ…' : 'âŒ'} {submitStatus.message}
         </div>
       )}
 

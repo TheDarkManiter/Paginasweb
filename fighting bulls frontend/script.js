@@ -21,6 +21,12 @@ document.addEventListener("DOMContentLoaded", () => {
   // Número destino (AJUSTA al real)
   const WHATSAPP_NUMBER = "5215579389286"; // formato wa.me (521 + 10 dígitos)
 
+  // API base (frontend solamente; Cloudflare Pages)
+  const API_BASE =
+    (window?.ENV?.VITE_API_URL || "").trim() ||
+    "https://scintillating-learning-production-8dd0.up.railway.app";
+  const API_LEADS_ENDPOINT = `${API_BASE.replace(/\/$/, "")}/api/leads`;
+
   // ---------- Helpers UI ----------
   function setStatus(msg, type = "error") {
     if (!status) return;
@@ -229,7 +235,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let leadSaved = false;
     try {
-      const response = await fetch("/.netlify/functions/create-lead", {
+      const response = await fetch(API_LEADS_ENDPOINT, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
