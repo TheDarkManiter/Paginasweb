@@ -4,6 +4,7 @@ const cors = require('cors');
 const morgan = require('morgan');
 
 const { pool } = require('./db/pool');
+const { corsOptions } = require('./config/cors');
 const contactRoutes = require('./routes/contact.routes');
 const enrollmentsRouter = require('./routes/enrollments.routes');
 const errorHandler = require('./middlewares/error-handler');
@@ -11,7 +12,8 @@ const errorHandler = require('./middlewares/error-handler');
 const app = express();
 
 app.use(helmet());
-app.use(cors());
+app.use(cors(corsOptions));
+app.options('*', cors(corsOptions));
 app.use(express.json());
 app.use(morgan('dev'));
 
